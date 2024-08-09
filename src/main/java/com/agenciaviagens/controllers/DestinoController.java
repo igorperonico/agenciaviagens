@@ -64,13 +64,11 @@ public class DestinoController {
         Optional<DestinoModel> livroO = repository.findById(id);
 
         if (livroO.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Livro nao encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Destino nao encontrado");
         } else {
             repository.deleteById(id);
-            return ResponseEntity.status(HttpStatus.OK).body("Livro excluido com sucesso!");
+            return ResponseEntity.status(HttpStatus.OK).body("Destino excluido com sucesso!");
         }
     }
-
-
 
 }

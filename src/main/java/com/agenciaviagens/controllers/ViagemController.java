@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -95,6 +96,30 @@ public class ViagemController {
             List<ViagemModel> viagens = viagemRepository.findByDestinoId(destinoId);
             return ResponseEntity.status(HttpStatus.OK).body(viagens);
         }
+    }
+
+    /**
+     * @param dataInicio Data de início do intervalo.
+     * @param dataTermino Data de término do intervalo.
+     * @return Lista de viagens que ocorrem dentro do intervalo de datas especificado.
+     */
+    @GetMapping("/intervaloDatas")
+    public ResponseEntity<List<ViagemModel>> getViagensByDataSaidaBetween(
+            @RequestParam(value = "dataInicio") String dataInicio,
+            @RequestParam(value = "dataTermino") String dataTermino) {
+        List<ViagemModel> viagens = viagemRepository.findAllByDataSaidaBetween(dataInicio, dataTermino);
+        return ResponseEntity.status(HttpStatus.OK).body(viagens);
+    }
+
+    /**
+     * @param valorTotal Custo total mínimo para filtrar as viagens.
+     * @return Lista de viagens com custo total maior que o valor especificado.
+     */
+    @GetMapping("/custoTotalMaiorQue/{valorTotal}")
+    public ResponseEntity<List<ViagemModel>> getViagensByCustoTotalGreaterThan(
+            @PathVariable(value = "valorTotal") BigDecimal valorTotal) {
+        List<ViagemModel> viagens = viagemRepository.findAllByValorTotalGreaterThan(valorTotal);
+        return ResponseEntity.status(HttpStatus.OK).body(viagens);
     }
 
 }
