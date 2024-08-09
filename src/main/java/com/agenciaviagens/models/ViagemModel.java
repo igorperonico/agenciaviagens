@@ -20,16 +20,12 @@ public class ViagemModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotBlank(message = "O título é obrigatório.")
     private String titulo;
 
-    @NotNull(message = "A data de início é obrigatória.")
     private LocalDateTime dataInicio;
 
-    @NotNull(message = "A data de término é obrigatória.")
     private LocalDateTime dataTermino;
 
-    @PositiveOrZero(message = "O custo total deve ser zero ou positivo.")
     private BigDecimal custoTotal;
 
     @ManyToOne
